@@ -1,12 +1,21 @@
+# -*- coding: utf-8 -*-
+"""
+Created on Thu Sep 28 10:43:07 2023
+
+@author: SumitKamarajugadda
+"""
+
 import pandas as pd
 
+assetColumnName = 'Asset ID (MCS)'
+
 #read csv
-df = pd.read_csv('C:\Temp\src.csv')
+df = pd.read_csv('C:\Temp\Assets Data.csv')
 
 #get all column names
 attribs = df.columns.tolist()
 #remove the asset id from column list, only attribute names remain
-attribs.remove('AssetID')
+attribs.remove(assetColumnName)
 
 #empty dictionary
 data = []
@@ -14,8 +23,8 @@ data = []
 #construct ductionary for attributes that contain values per assetId
 for ind in df.index:
     for attrib in attribs:
-        if not pd.isnull(df[attrib][ind]):
-            data.append({'AssetId': df['AssetID'][ind], 'Attribute Name': attrib, 'Attribute value':df[attrib][ind]})
+        if not pd.isnull(df[attrib][ind]) and not pd.isnull(df[assetColumnName][ind]):
+            data.append({assetColumnName: df[assetColumnName][ind], 'Attribute Name': attrib, 'Attribute value':df[attrib][ind]})
 
 #convert dictionary to dataframe
 result = pd.DataFrame(data)
