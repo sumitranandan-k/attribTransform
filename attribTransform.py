@@ -22,9 +22,10 @@ data = []
 
 #construct ductionary for attributes that contain values per assetId
 for ind in df.index:
-    for attrib in attribs:
-        if not pd.isnull(df[attrib][ind]) and not pd.isnull(df[assetColumnName][ind]):
-            data.append({assetColumnName: df[assetColumnName][ind], 'Attribute Name': attrib, 'Attribute value':df[attrib][ind]})
+    if not pd.isnull(df[assetColumnName][ind]):
+        for attrib in attribs:
+            if not pd.isnull(df[attrib][ind]):
+                data.append({assetColumnName: df[assetColumnName][ind], 'Attribute Name': attrib, 'Attribute value':df[attrib][ind]})
 
 #convert dictionary to dataframe
 result = pd.DataFrame(data)
